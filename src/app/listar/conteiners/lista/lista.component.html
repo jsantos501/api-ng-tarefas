@@ -1,0 +1,25 @@
+<mat-card>
+
+  <mat-toolbar color="primary">
+    <span>Lista de Tarefas</span>
+  </mat-toolbar>
+  <div class="column-flex mat-elevation-z8">
+
+    <app-tarefa-lista *ngIf="lista$ | async as lista; else loading" 
+    [lista]="lista"
+    (add)="onAdd()"
+    (edit)="onEdit($event)"
+    (remove)="onRemove($event)"
+    
+    ></app-tarefa-lista>
+    <button (click)="onAdd()" mat-mini-fab color="primary" aria-label="Adicionar tarefa">
+      <mat-icon >add</mat-icon>
+    </button>
+
+    <ng-template #loading>
+      <div class="loading-spinner">
+        <mat-spinner></mat-spinner>
+      </div>
+    </ng-template>
+  </div>
+</mat-card>

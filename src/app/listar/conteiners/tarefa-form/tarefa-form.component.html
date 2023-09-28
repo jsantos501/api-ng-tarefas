@@ -1,0 +1,31 @@
+<mat-card>
+    <mat-toolbar color="primary"> incluir nova tarefa</mat-toolbar>
+    <mat-card-content>
+        <form [formGroup]="form" class="min-width">
+            <mat-form-field class="full-width">
+                <input matInput placeholder="nome da tarefa" formControlName="nomeTarefa" required>
+                <mat-error *ngIf="form.get('nomeTarefa')?.invalid">{{getErrorMessage('nomeTarefa')}}</mat-error>
+
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+                <input matInput placeholder="custo" formControlName="custo" required>
+                <mat-error *ngIf="form.get('custo')?.invalid">{{getErrorMessage('custo')}}</mat-error>
+
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+                <input matInput placeholder="data limite" formControlName="dataLimite" required>
+                <mat-error *ngIf="form.get('dataLimite')?.invalid">{{getErrorMessage('dataLimite')}}</mat-error>
+
+            </mat-form-field>
+
+        </form>
+    </mat-card-content>
+
+    <mat-card-actions>
+        <button mat-raised-button (click)="onSubmit()" color="primary">salvar</button>
+        <button mat-raised-button (click)="onCancel()">cancelar</button>
+    </mat-card-actions>
+
+</mat-card>

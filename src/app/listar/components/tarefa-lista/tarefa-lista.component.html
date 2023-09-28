@@ -1,0 +1,56 @@
+<mat-table [dataSource]="lista" >
+
+
+    <!-- name Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell  *matHeaderCellDef> id </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+    </ng-container>
+
+    <!-- nomeTarefa Column -->
+    <ng-container matColumnDef="nomeTarefa">
+      <mat-header-cell *matHeaderCellDef> nome da tarefa </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.nomeTarefa}} </mat-cell>
+    </ng-container>
+
+    <!-- custo Column -->
+    <ng-container matColumnDef="custo">
+      <mat-header-cell *matHeaderCellDef> custo </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.custo}} </mat-cell>
+    </ng-container>
+
+    <!-- dataLimite Column -->
+    <ng-container matColumnDef="dataLimite">
+      <mat-header-cell *matHeaderCellDef> data limite </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.dataLimite}} </mat-cell>
+    </ng-container>
+
+    <!-- ordemApresentacao Column -->
+    <ng-container matColumnDef="ordemApresentacao">
+      <mat-header-cell *matHeaderCellDef> ordem de apresentacao </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.ordemApresentacao}} </mat-cell>
+    </ng-container>
+
+    <!-- actions Column -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef class="action-column-header">
+
+      </mat-header-cell>
+
+      <mat-cell *matCellDef="let element" class="action-column">
+        <button (click)="onEdit(element)" mat-mini-fab color="primary" aria-label="Editar tarefa">
+
+          <mat-icon>editar</mat-icon>
+        </button>
+
+        <button (click)="onDelete(element)" mat-mini-fab color="accent" aria-label="Deletar tarefa">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+
+    </ng-container>
+
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-header-row *matRowDef="let row; columns: displayedColumns;"></mat-header-row>
+  </mat-table>
