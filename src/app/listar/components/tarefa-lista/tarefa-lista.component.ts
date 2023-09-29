@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Lista } from '../../model/lista';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-tarefa-lista',
@@ -9,10 +10,11 @@ import { Lista } from '../../model/lista';
 export class TarefaListaComponent implements OnInit {
 
   @Input() lista: Lista[] = [];
+  
   @Output() add = new EventEmitter(false);
   @Output() edit = new EventEmitter(false);
   @Output() remove = new EventEmitter(false);
-
+  @Output() drag = new EventEmitter(false);
   readonly displayedColumns = ['id', 'nomeTarefa', 'custo', 'dataLimite',  'actions'];
 
 
@@ -35,4 +37,7 @@ export class TarefaListaComponent implements OnInit {
     this.remove.emit(lista);
   }
 
+  onDrag(event: CdkDragDrop<Lista[]>){
+    this.drag.emit(event);
+  }
 }

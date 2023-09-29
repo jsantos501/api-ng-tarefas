@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http'
 import { tap } from 'rxjs/internal/operators/tap';
 import { first } from 'rxjs/internal/operators/first';
 import { delay } from 'rxjs/internal/operators/delay';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ import { delay } from 'rxjs/internal/operators/delay';
 export class ListaService {
 
   private readonly API = '/api/tarefas/';
+  private readonly API_REORDENAR = this.API+'reordenar';
   
   
   constructor(private httpClient: HttpClient) { }
@@ -21,10 +23,10 @@ export class ListaService {
       return this.httpClient.get<Lista[]>(this.API)
         .pipe(
           first(),
-          delay(1000),
+          delay(500),
           tap(lista => console.log(lista))
         );
-        
+
     }
 
     loadById(id: string){
@@ -60,6 +62,10 @@ export class ListaService {
     remove(id: any){
       return this.httpClient.delete<Lista>(this.API+id);
         
+    }
+
+    reordenar(lista: Partial<Lista[]>){
+      return this.httpClient.put<Lista[]>(this.API_REORDENAR, lista);
     }
 
 }

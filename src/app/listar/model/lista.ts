@@ -4,4 +4,5 @@ export interface Lista {
     custo: string| null;
     dataLimite: string | null;
     ordemApresentacao: string;
+    flag: boolean | false;
 }

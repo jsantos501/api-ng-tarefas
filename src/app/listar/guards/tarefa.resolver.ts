@@ -12,5 +12,5 @@ export const tarefaResolver: ResolveFn<Lista> = (route, state) =>{
     return inject(ListaService).loadById(route.params['id'])
   }
 
-  return {id: '', nomeTarefa: '',   custo: '', dataLimite: '', ordemApresentacao: ''};
+  return {id: '', nomeTarefa: '',   custo: '', dataLimite: '', ordemApresentacao: '', flag: false};
 }

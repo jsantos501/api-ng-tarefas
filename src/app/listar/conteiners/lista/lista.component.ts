@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Lista } from '../../model/lista';
 import { ListaService } from '../../services/lista.service';
 import { Observable } from 'rxjs/internal/Observable';
@@ -9,6 +9,8 @@ import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/err
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { MatTable } from '@angular/material/table';
 
 
 @Component({
@@ -18,6 +20,8 @@ import { ConfirmationDialogComponent } from '../../components/confirmation-dialo
   
 })
 export class ListaComponent implements OnInit{
+  
+  @ViewChild(MatTable) table!: MatTable<any>;
 
   lista$: Observable<Lista[]> | null = null;
 
@@ -38,9 +42,10 @@ export class ListaComponent implements OnInit{
       catchError(error => {
         this.onError('Error ao carregar as tarefas.');
         return of([]);
-      })
-    );
+      }));
+  
   }
+
  
   onError(errorMsg: string) {
     this.dialog.open(ErrorDialogComponent, {
@@ -80,10 +85,28 @@ export class ListaComponent implements OnInit{
             error => this.onError('Erro ao tentar remover a tarefa.'));
         }
       });
-    
-
-
-
   }
   
+
+  onDrag(event: CdkDragDrop<Lista[]>){
+
+    this.lista$?.subscribe(list => {
+        moveItemInArray<Lista>(list, event.previousIndex, event.currentIndex);
+        let index = 0;
+        list.map(registro => registro.ordemApresentacao = ''+index++);
+        this.reordenar(list);
+    });
+
+  }
+
+  private reordenar(listaAtualizada: Lista[]){
+    this.lista$ = this.listaService.reordenar(listaAtualizada)
+    .pipe(
+      catchError(error => {
+        this.onError('Error ao carregar as tarefas.');
+        return of([]);
+      })
+    );
+  }
+
 }

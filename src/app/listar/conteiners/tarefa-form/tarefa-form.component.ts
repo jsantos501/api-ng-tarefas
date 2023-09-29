@@ -12,7 +12,7 @@ import { Lista } from '../../model/lista';
   styleUrls: ['./tarefa-form.component.scss']
 })
 export class TarefaFormComponent implements OnInit {
-  mascaraMoeda: string ="^[0-9]{1,10}.[0-9]{1,9}$";
+  mascaraMoeda: string ="^[0-9]{1,17}.[0-9]{1,2}$";
   mascaraData: string ="^[0-3][0-9]/[01][0-9]/[0-9]{4}$";
   
   form = this.formBuilder.group({
